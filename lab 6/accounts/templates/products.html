@@ -1,0 +1,39 @@
+{% extends 'main.html' %}
+
+{% block content %}
+{% load static %}
+
+<div class="row">
+  {% for product in products %}
+  <div class="col-lg-3 mb-4">
+    <div class="card">
+      <img class="card-img-top" src="/static{{ product.image.url }}" alt="{{ product.name }}"
+        style="background-size: cover; background-position: center; height: 300px; width: 100%;">
+      <div class="card-body">
+        <h5 class="card-title">{{ product.name }}</h5>
+        <p class="card-text">{{ product.description }}</p>
+        <div class="card-footer">
+          <span class="btn btn-primary" style="width: 40%;">{{ product.price }} riyals</span>
+          <span>
+            <form method="POST" action="{% url 'place_order' product.id %}" style="display: inline;">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-primary">Place Order</button>
+            </form>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% if messages %}
+<div class="alert alert-success mt-4">
+  <ul class="m-0">
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'main.html' %} {% block content %}
+<header class="hero bg-primary text-white text-center py-5">
+    <div class="container">
+        <h1>Welcome to our Shopping Website</h1>
+        <p>Explore our wide range of products</p>
+        <a href="{% url 'products' %}" class="btn btn-light">Shop Now</a>
+    </div>
+</header>
+
+<section class="featured-products py-5">
+    <div class="container">
+        <h2 class="text-center mb-4">Featured Products</h2>
+        <div class="row">
+            {% for i in products %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card">
+                    <img src="/static{{i.image.url}}" style="width: 100%; height: 250px;" class="card-img-top"
+                        alt="Product 1">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ i.name }}</h5>
+                        <p class="card-text">{{ i.description }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
